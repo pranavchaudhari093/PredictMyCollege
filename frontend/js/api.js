@@ -1,7 +1,7 @@
 /**
  * PredictMyCollege — API Service Layer
  */
-const API_BASE = '/api';
+const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) || '/api';
 
 export async function fetchMetadata(course = '', percentile = '') {
   const params = new URLSearchParams();
