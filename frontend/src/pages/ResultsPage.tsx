@@ -88,7 +88,7 @@ const FilterSidebar: React.FC<{
 };
 
 // ── College Row ───────────────────────────────────────────────────────────────
-const CollegeRow: React.FC<{ college: College; index: number }> = ({ college, index }) => (
+const CollegeRow: React.FC<{ college: College }> = ({ college }) => (
   <tr
     className="border-b transition-colors"
     style={{ borderColor: 'var(--color-outline-variant)' }}
@@ -324,7 +324,7 @@ const ResultsPage: React.FC = () => {
                   </thead>
                   <tbody>
                     {paginated.map((college, i) => (
-                      <CollegeRow key={`${college.institute_code}-${college.branch}-${i}`} college={college} index={i} />
+                      <CollegeRow key={`${college.institute_code}-${college.branch}-${i}`} college={college} />
                     ))}
                   </tbody>
                 </table>

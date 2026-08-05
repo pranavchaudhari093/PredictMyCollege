@@ -141,8 +141,9 @@ def create_app():
     return app
 
 
+app = create_app()
+
 if __name__ == "__main__":
     port = int(os.getenv("FLASK_PORT", 5000))
-    app  = create_app()
     print(f"[*] Server starting on http://localhost:{port}")
     app.run(debug=True, port=port, host="0.0.0.0")

@@ -12,11 +12,16 @@ __pycache__/
 *.pyo
 *.pyd
 .env
+.env.local
 **/.env
+**/.env.local
 .venv/
 venv/
 ENV/
 env/
+
+# Vercel deployment cache
+.vercel/
 
 # IDE & System files
 .vscode/
