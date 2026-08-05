@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PredictMyCollege | AI-Powered MHT-CET College Predictor</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-secondary-container": "#5c647a",
+            "on-primary-fixed-variant": "#003ea8",
+            "on-tertiary-fixed-variant": "#005048",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#00201c",
+            "error": "#ba1a1a",
+            "surface-variant": "#e0e3e5",
+            "on-tertiary-container": "#b1fff1",
+            "secondary-fixed-dim": "#bec6e0",
+            "on-surface-variant": "#434655",
+            "primary-fixed-dim": "#b4c5ff",
+            "tertiary-container": "#007b6e",
+            "tertiary-fixed-dim": "#4fdbc8",
+            "inverse-surface": "#2d3133",
+            "surface-container-lowest": "#ffffff",
+            "background": "#f7f9fb",
+            "outline-variant": "#c3c6d7",
+            "surface-container-low": "#f2f4f6",
+            "surface": "#f7f9fb",
+            "on-error": "#ffffff",
+            "tertiary": "#006056",
+            "inverse-primary": "#b4c5ff",
+            "surface-bright": "#f7f9fb",
+            "on-secondary-fixed": "#131b2e",
+            "primary-fixed": "#dbe1ff",
+            "secondary-container": "#dae2fd",
+            "outline": "#737686",
+            "on-secondary": "#ffffff",
+            "surface-container": "#eceef0",
+            "surface-container-highest": "#e0e3e5",
+            "on-surface": "#191c1e",
+            "on-primary-fixed": "#00174b",
+            "surface-dim": "#d8dadc",
+            "on-background": "#191c1e",
+            "on-primary-container": "#eeefff",
+            "primary-container": "#2563eb",
+            "on-primary": "#ffffff",
+            "secondary": "#565e74",
+            "error-container": "#ffdad6",
+            "primary": "#004ac6",
+            "surface-container-high": "#e6e8ea",
+            "surface-tint": "#0053db",
+            "inverse-on-surface": "#eff1f3",
+            "tertiary-fixed": "#71f8e4",
+            "secondary-fixed": "#dae2fd",
+            "on-tertiary": "#ffffff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "sm": "12px",
+            "margin-desktop": "40px",
+            "lg": "24px",
+            "2xl": "48px",
+            "md": "16px",
+            "margin-mobile": "16px",
+            "3xl": "64px",
+            "xs": "4px",
+            "base": "8px",
+            "gutter": "24px",
+            "xl": "32px"
+          },
+          fontFamily: {
+            "sans": ["Poppins", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F8FAFC;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+  <!-- Top Navigation Bar -->
+  <header class="bg-surface sticky top-0 z-50 border-b border-outline-variant">
+    <div class="flex justify-between items-center w-full px-4 md:px-margin-desktop max-w-[1280px] mx-auto h-16 md:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 no-underline flex-shrink-0">
+        <img src="/assets/app_logo.jpg" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 object-contain rounded-lg shadow-sm" />
+        <span class="font-bold text-base sm:text-lg md:text-xl text-primary">PredictMyCollege</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex gap-xl items-center">
+        <a class="text-primary border-b-2 border-primary font-bold pb-1 text-sm" href="/">Home</a>
+        <a class="text-secondary font-medium hover:text-primary transition-colors text-sm" href="/predict">Predictor</a>
+        <a class="text-secondary font-medium hover:text-primary transition-colors text-sm" href="/dashboard">Dashboard</a>
+        <a class="text-secondary font-medium hover:text-primary transition-colors text-sm" href="/settings">Settings</a>
+      </div>
+
+      <!-- Header User Profile & Mobile Toggle -->
+      <div class="flex items-center gap-2">
+        <div id="headerUserProfile"></div>
+        <button id="mobileMenuToggleBtn" type="button" class="md:hidden text-secondary p-1.5 rounded-lg hover:bg-surface-container-low focus:outline-none flex items-center justify-center">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenuDrawer" class="hidden md:hidden bg-white border-b border-outline-variant px-4 py-md space-y-sm shadow-xl">
+      <a href="/" class="block px-md py-sm rounded-lg bg-primary-container/10 text-primary font-bold text-sm">Home</a>
+      <a href="/predict" class="block px-md py-sm rounded-lg text-secondary font-medium text-sm hover:bg-surface-container-low">Predictor</a>
+      <a href="/dashboard" class="block px-md py-sm rounded-lg text-secondary font-medium text-sm hover:bg-surface-container-low">Dashboard</a>
+      <a href="/settings" class="block px-md py-sm rounded-lg text-secondary font-medium text-sm hover:bg-surface-container-low">Settings</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section with 3D Artwork -->
+    <section class="relative overflow-hidden py-8 sm:py-12 md:py-2xl px-4 md:px-margin-desktop max-w-[1280px] mx-auto min-h-[520px] md:min-h-[600px] flex flex-col justify-center">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-2xl">
+        <div class="space-y-4 md:space-y-xl text-center md:text-left max-w-2xl">
+          <div class="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+            <img src="/assets/students_campus.jpg" alt="Students Icon" class="w-5 h-5 rounded-full object-cover" />
+            <span>AI-Powered MHT-CET Predictor</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+            Predict Your Future <br class="hidden sm:inline">
+            <span class="text-gradient">College with AI</span>
+          </h1>
+          <p class="text-xs sm:text-sm md:text-base text-secondary max-w-lg mx-auto md:mx-0">
+            Analyze 188,000+ MHT-CET cutoff data records to predict your exact admission chances across engineering, MCA, and pharmacy colleges in Maharashtra.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start items-center pt-2">
+            <a href="/predict" class="w-full sm:w-auto bg-primary-container text-white px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2 h-12">
+              <span>Predict My Colleges</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </a>
+            <a href="/dashboard" class="w-full sm:w-auto bg-white border border-outline-variant px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-on-surface hover:bg-surface-container-low transition-all text-center h-12 flex items-center justify-center">
+              <span>View Dashboard</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3D Students Artwork Display -->
+        <div class="w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 flex-shrink-0 mt-2 md:mt-0">
+          <div class="w-full h-full rounded-2xl md:rounded-3xl bg-white border border-outline-variant p-2 sm:p-md shadow-xl overflow-hidden flex items-center justify-center">
+            <img src="/assets/students_campus.jpg" alt="Engineering Students on Campus" class="w-full h-full object-cover rounded-xl md:rounded-2xl transform hover:scale-105 transition-transform duration-500" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Summary Bar (2x2 on Mobile, 4x1 on Desktop) -->
+    <section class="bg-white py-6 md:py-10 border-y border-outline-variant">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-xl text-center">
+          <div class="space-y-1">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">1,000+</h2>
+            <p class="text-[10px] md:text-xs text-secondary uppercase font-bold tracking-wider">Colleges Indexed</p>
+          </div>
+          <div class="space-y-1">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">3 Rounds</h2>
+            <p class="text-[10px] md:text-xs text-secondary uppercase font-bold tracking-wider">CAP Cutoff Data</p>
+          </div>
+          <div class="space-y-1">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">188k+</h2>
+            <p class="text-[10px] md:text-xs text-secondary uppercase font-bold tracking-wider">Cutoff Records</p>
+          </div>
+          <div class="space-y-1">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">100%</h2>
+            <p class="text-[10px] md:text-xs text-secondary uppercase font-bold tracking-wider">Free & Instant</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-10 md:py-2xl px-4 md:px-margin-desktop max-w-[1280px] mx-auto space-y-6 md:space-y-xl">
+      <div class="text-center space-y-2">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-on-surface">Why Choose PredictMyCollege?</h2>
+        <p class="text-xs sm:text-sm text-secondary max-w-xl mx-auto">AI technology engineered to give you complete clarity during MHT-CET CAP round options filling.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-lg">
+        <!-- Feature 1 -->
+        <div class="bg-white border border-outline-variant rounded-2xl p-5 md:p-xl shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-container/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+          </div>
+          <h3 class="text-base md:text-xl font-bold text-on-surface">AI-Powered Odds</h3>
+          <p class="text-xs md:text-sm text-secondary">Neural algorithms evaluate historical cutoff trends to classify colleges into Safe, Target, and Dream categories.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-primary text-white rounded-2xl p-5 md:p-xl shadow-sm space-y-3 flex flex-col justify-between">
+          <div class="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">verified</span>
+          </div>
+          <div>
+            <h3 class="text-base md:text-xl font-bold text-white mb-1">Official CAP Data</h3>
+            <p class="text-xs md:text-sm opacity-90">100% authentic data compiled directly from Maharashtra State CET Cell CAP round cutoff releases.</p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white border border-outline-variant rounded-2xl p-5 md:p-xl shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-container/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+          </div>
+          <h3 class="text-base md:text-xl font-bold text-on-surface">Export PDF Option List</h3>
+          <p class="text-xs md:text-sm text-secondary">Generate and print high-density PDF preference lists tailored for your CAP option form filling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-on-background text-on-primary py-10 md:py-2xl">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop space-y-6 md:space-y-xl">
+        <div class="text-center space-y-2">
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold">How It Works</h2>
+          <p class="text-xs sm:text-sm text-secondary-fixed-dim max-w-xl mx-auto">Three simple steps to secure your engineering future in Maharashtra.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-xl">
+          <div class="text-center space-y-2 bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto text-lg font-bold">1</div>
+            <h3 class="text-base font-bold">Enter Percentile</h3>
+            <p class="text-xs text-secondary-fixed-dim">Input your MHT-CET score, reservation category, and home university.</p>
+          </div>
+
+          <div class="text-center space-y-2 bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto text-lg font-bold">2</div>
+            <h3 class="text-base font-bold">AI Analysis</h3>
+            <p class="text-xs text-secondary-fixed-dim">Engine computes exact cutoffs across 188,000+ data points for Round 1, 2 & 3.</p>
+          </div>
+
+          <div class="text-center space-y-2 bg-white/5 p-4 rounded-xl border border-white/10">
+            <div class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center mx-auto text-lg font-bold">3</div>
+            <h3 class="text-base font-bold">Get Preference List</h3>
+            <p class="text-xs text-secondary-fixed-dim">Receive a categorized Safe, Target & Dream list and export PDF instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section class="py-10 md:py-2xl px-4 md:px-margin-desktop max-w-[1280px] mx-auto">
+      <div class="bg-primary-container rounded-2xl md:rounded-3xl p-6 md:p-2xl text-center text-white space-y-4 shadow-xl">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold">Ready to Find Your Dream College?</h2>
+        <p class="text-xs sm:text-sm text-white/90 max-w-xl mx-auto">Start predicting your admission chances with 100% verified Maharashtra MHT-CET cutoff data.</p>
+        <a href="/predict" class="inline-flex items-center gap-2 bg-white text-primary font-extrabold px-8 py-3.5 rounded-full shadow-lg hover:scale-105 transition-all text-xs sm:text-sm">
+          <span>Predict My College Now</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-surface-container-low border-t border-outline-variant py-6 md:py-xl">
+    <div class="w-full px-4 md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-[1280px] mx-auto gap-4 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <img src="/assets/3d_graduation_cap.jpg" alt="Logo" class="w-7 h-7 rounded-lg object-contain" />
+        <span class="font-bold text-primary text-sm md:text-base">PredictMyCollege AI</span>
+      </div>
+      <p class="text-secondary text-xs">© 2026 PredictMyCollege AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Sticky Action Bar for Mobile Smartphones (< md screens) -->
+  <div class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-primary-container text-white py-3 px-5 rounded-full shadow-2xl flex items-center justify-between border border-white/20 active:scale-98 transition-transform">
+    <div class="flex items-center gap-2">
+      <img src="/assets/app_logo.jpg" alt="Icon" class="w-6 h-6 rounded-full object-cover" />
+      <span class="font-bold text-xs">PredictMyCollege AI</span>
+    </div>
+    <a href="/predict" class="bg-white text-primary px-3.5 py-1.5 rounded-full text-xs font-extrabold shadow flex items-center gap-1">
+      <span>Predict</span>
+      <span class="material-symbols-outlined text-sm">bolt</span>
+    </a>
+  </div>
+
+  <script type="module" src="/js/user-nav.js"></script>
+</body>
+</html>
