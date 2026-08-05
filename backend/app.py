@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ─── Pre-load DataFrames at startup ──────────────────────────────────────────
-DATA_PATH = os.getenv("CSV_DATA_PATH", "../data")
+DEFAULT_DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+DATA_PATH = os.getenv("CSV_DATA_PATH", DEFAULT_DATA_PATH)
 
 print("[*] Loading CSV data files...")
 
